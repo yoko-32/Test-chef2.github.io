@@ -9,7 +9,14 @@ const ASSETS = [
   "./audio/collect.wav"
   // add any other js/css/images you use
 ];
-
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    const base = `/${location.pathname.split('/')[1]}/`; // "/<repo>/"
+    navigator.serviceWorker.register(`${base}service-worker.js`, { scope: base });
+  });
+}
+</script>
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
 });
