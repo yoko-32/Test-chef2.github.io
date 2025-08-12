@@ -60,6 +60,14 @@
 </div>
 
 <script>
+  if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/my-site/service-worker.js', { scope: '/my-site/' }) // <-- change 'my-site'
+      .then(r => console.log('SW registered:', r.scope))
+      .catch(err => console.error('SW registration failed:', err));
+  });
+}
 (() => {
   const canvas = document.getElementById('game');
   const ctx = canvas.getContext('2d');
